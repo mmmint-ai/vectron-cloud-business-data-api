@@ -1,0 +1,1124 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "business-data-api API definitions",
+    "version": "1.0",
+    "title": "business-data-api",
+    "termsOfService": "termsOfServiceURL",
+    "contact": {
+      "name": "Vectron Systems AG",
+      "url": "https://www.vectron-systems.com/de/"
+    },
+    "license": {}
+  },
+  "host": "demo-backend.vectron.cloud",
+  "basePath": "/business-data-api",
+  "tags": [
+    {
+      "name": "business-data-controller",
+      "description": "Business Data Controller"
+    }
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/v1/login": {
+      "post": {
+        "tags": [
+          "Authorization"
+        ],
+        "summary": "Get a partner authorization token",
+        "operationId": "loginPartnerUsingPOST",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "credentials",
+            "description": "Credentials",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/PartnerCredentials"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Token"
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "api_token_sec_key": []
+          }
+        ]
+      }
+    },
+    "/v1/operator/{operatorId}/sites": {
+      "get": {
+        "tags": [
+          "Site"
+        ],
+        "summary": "Get all sites for operator",
+        "description": "Get sites for operator",
+        "operationId": "getSitesUsingGET",
+        "parameters": [
+          {
+            "name": "operatorId",
+            "in": "path",
+            "description": "Operator Id",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of sites",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Site"
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "api_token_sec_key": []
+          }
+        ]
+      }
+    },
+    "/v1/partner/{partnerId}/operators": {
+      "get": {
+        "tags": [
+          "Operator"
+        ],
+        "summary": "Get all operators",
+        "description": "Get all operators",
+        "operationId": "getOperatorsUsingGET",
+        "parameters": [
+          {
+            "name": "partnerId",
+            "in": "path",
+            "description": "Partner Id",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of operators",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Operator"
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "api_token_sec_key": []
+          }
+        ]
+      }
+    },
+    "/v1/site/{siteId}/data-entries": {
+      "get": {
+        "tags": [
+          "DataEntry"
+        ],
+        "summary": "Get all data entries for site",
+        "description": "Get data entries for site",
+        "operationId": "getDataEntriesBySiteUsingGET",
+        "parameters": [
+          {
+            "name": "siteId",
+            "in": "path",
+            "description": "Site Id",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of data entries",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/DataEntry"
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "api_token_sec_key": []
+          }
+        ]
+      }
+    },
+    "/v1/site/{siteId}/staff-attendances": {
+      "get": {
+        "tags": [
+          "StaffAttendance"
+        ],
+        "summary": "Get all staff attendances for site",
+        "description": "Get staff attendances for site",
+        "operationId": "getStaffAttendanceBySiteUsingGET",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "Pass attendance id as offset to receive the last or next n attendance entries",
+            "required": false,
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "name": "order",
+            "in": "query",
+            "description": "Order of attendances, options: ASC (oldest first) / DESC (newest first) default: DESC",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "ASC",
+              "DESC"
+            ]
+          },
+          {
+            "name": "siteId",
+            "in": "path",
+            "description": "Site Id",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of staff attendances",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/StaffAttendance"
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "api_token_sec_key": []
+          }
+        ]
+      }
+    },
+    "/v1/site/{siteId}/transactions": {
+      "get": {
+        "tags": [
+          "Transaction"
+        ],
+        "summary": "Get all transactions for site",
+        "description": "Get transactions for site",
+        "operationId": "getTransactionsUsingGET",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "Pass invoice id as offset to receive the last n invoices",
+            "required": false,
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "name": "order",
+            "in": "query",
+            "description": "order",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "ASC",
+              "DESC"
+            ]
+          },
+          {
+            "name": "siteId",
+            "in": "path",
+            "description": "Site Id",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of transactions",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/DetailedInvoice"
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "api_token_sec_key": []
+          }
+        ]
+      }
+    }
+  },
+  "securityDefinitions": {
+    "api_token_sec_key": {
+      "type": "apiKey",
+      "name": "X-API-Token",
+      "in": "header"
+    }
+  },
+  "definitions": {
+    "CancelReason": {
+      "type": "object",
+      "properties": {
+        "cancelReasonId": {
+          "type": "string",
+          "format": "uuid",
+          "example": "db110ac0-8a18-4258-b21a-82729c6b00bd",
+          "description": "Unique id of the cancel reason"
+        },
+        "name": {
+          "type": "string",
+          "example": "Return of goods",
+          "description": "The name of the cancel reason"
+        },
+        "number": {
+          "type": "string",
+          "example": 1,
+          "description": "The number of the cancel reason"
+        }
+      },
+      "title": "CancelReason"
+    },
+    "DataEntry": {
+      "type": "object",
+      "properties": {
+        "dataEntryId": {
+          "type": "string",
+          "format": "uuid",
+          "example": "db110ac0-8a18-4258-b21a-82729c6b00bd",
+          "description": "Unique id of the data entry"
+        },
+        "dataInputMask": {
+          "description": "The data input mask",
+          "$ref": "#/definitions/DataInputMask"
+        },
+        "inputAt": {
+          "type": "string",
+          "format": "date",
+          "example": "2022-02-11T12:34:56",
+          "description": "UTC-Timestamp when the data entry change occurred"
+        },
+        "managedArticles": {
+          "type": "array",
+          "description": "List of managed articles",
+          "items": {
+            "$ref": "#/definitions/ManagedArticle"
+          }
+        },
+        "posUserName": {
+          "type": "string",
+          "example": "Best Cashier",
+          "description": "Name of the pos user"
+        },
+        "posUserNo": {
+          "type": "integer",
+          "format": "int32",
+          "example": 123,
+          "description": "Number of the pos user"
+        },
+        "serialNumber": {
+          "type": "string",
+          "example": 123456,
+          "description": "Serial number of the used cash register"
+        }
+      },
+      "title": "DataEntry"
+    },
+    "DataInputMask": {
+      "type": "object",
+      "properties": {
+        "inputMaskColumns": {
+          "type": "array",
+          "description": "List of the input mask columns",
+          "items": {
+            "$ref": "#/definitions/DataInputMaskColumn"
+          }
+        },
+        "inputMaskName": {
+          "type": "string",
+          "example": "Best. FR 07.01.22",
+          "description": "The name of the input mask"
+        },
+        "inputMaskNo": {
+          "type": "integer",
+          "format": "int32",
+          "example": 2,
+          "description": "The number of the input mask"
+        }
+      },
+      "title": "DataInputMask"
+    },
+    "DataInputMaskColumn": {
+      "type": "object",
+      "properties": {
+        "columnLevel": {
+          "type": "integer",
+          "format": "int32",
+          "example": 12,
+          "description": "The level of the input mask column"
+        },
+        "columnName": {
+          "type": "string",
+          "example": "Mind EH",
+          "description": "The name of the input mask column"
+        },
+        "columnNo": {
+          "type": "integer",
+          "format": "int32",
+          "example": 2,
+          "description": "The number of the input mask column"
+        }
+      },
+      "title": "DataInputMaskColumn"
+    },
+    "DetailedInvoice": {
+      "type": "object",
+      "properties": {
+        "cancelReasons": {
+          "type": "array",
+          "description": "List of cancellation reasons for invoice canceled items",
+          "items": {
+            "$ref": "#/definitions/CancelReason"
+          }
+        },
+        "canceledItems": {
+          "type": "array",
+          "description": "List canceled items of the invoice",
+          "items": {
+            "$ref": "#/definitions/InvoiceCanceledItem"
+          }
+        },
+        "cashRegisterId": {
+          "type": "string",
+          "format": "uuid",
+          "example": "14fa3a4e-5f66-49bd-9766-bcad709be3d9",
+          "description": "Reference id of the cash register that created the invoice."
+        },
+        "currency": {
+          "type": "string",
+          "example": "EUR",
+          "description": "The ISO name of the currency used in this invoice (currently only EUR supported)"
+        },
+        "discounts": {
+          "type": "array",
+          "description": "List of discounts contained within the invoice",
+          "items": {
+            "$ref": "#/definitions/InvoiceDiscount"
+          }
+        },
+        "invoiceId": {
+          "type": "string",
+          "format": "uuid",
+          "example": "c064e862-a6ee-4ad6-943e-6b1d141eca33",
+          "description": "Unique id of this invoice"
+        },
+        "invoiceNumber": {
+          "type": "integer",
+          "format": "int64",
+          "example": 1238,
+          "description": "POS-relevant number of the invoice"
+        },
+        "itemDiscounts": {
+          "type": "array",
+          "description": "List of discounts for invoice items",
+          "items": {
+            "$ref": "#/definitions/InvoiceItemDiscount"
+          }
+        },
+        "itemSurcharges": {
+          "type": "array",
+          "description": "List of surcharges for invoice items",
+          "items": {
+            "$ref": "#/definitions/InvoiceItemSurcharge"
+          }
+        },
+        "items": {
+          "type": "array",
+          "description": "List of items of the invoice",
+          "items": {
+            "$ref": "#/definitions/InvoiceItem"
+          }
+        },
+        "mainGroups": {
+          "type": "array",
+          "description": "List of main groups which are contained in the invoice items",
+          "items": {
+            "$ref": "#/definitions/MainGroup"
+          }
+        },
+        "netTotal": {
+          "type": "number",
+          "example": 14.52,
+          "description": "The numeric total net amount of this invoice"
+        },
+        "productGroups": {
+          "type": "array",
+          "description": "List of product groups they contained in the invoice items",
+          "items": {
+            "$ref": "#/definitions/ProductGroup"
+          }
+        },
+        "products": {
+          "type": "array",
+          "description": "List of products they contained in the invoice items",
+          "items": {
+            "$ref": "#/definitions/Product"
+          }
+        },
+        "siteId": {
+          "type": "string",
+          "format": "uuid",
+          "example": "603f97af-090a-4f31-8426-95fbbf70c95f",
+          "description": "Reference id to the site"
+        },
+        "surcharges": {
+          "type": "array",
+          "description": "List of surcharges contained within the invoice",
+          "items": {
+            "$ref": "#/definitions/InvoiceSurcharge"
+          }
+        },
+        "tableNumber": {
+          "type": "integer",
+          "format": "int64",
+          "example": 23,
+          "description": "POS-relevant number of table of the invoice"
+        },
+        "total": {
+          "type": "number",
+          "example": 17.28,
+          "description": "The numeric total gross amount of this invoice"
+        },
+        "transactionAt": {
+          "type": "string",
+          "format": "date",
+          "example": "2018-08-03T10:03:17Z",
+          "description": "Date and time of the invoice"
+        },
+        "transactionType": {
+          "type": "string",
+          "example": "INVOICE",
+          "description": "The type of the transaction",
+          "enum": [
+            "CANCELLED_INVOICE",
+            "INVOICE"
+          ]
+        },
+        "waiterNumber": {
+          "type": "integer",
+          "format": "int64",
+          "example": 12,
+          "description": "POS-relevant number of waiter who has created the invoice"
+        }
+      },
+      "title": "DetailedInvoice"
+    },
+    "InvoiceCanceledItem": {
+      "type": "object",
+      "properties": {
+        "cancelPrice": {
+          "type": "number",
+          "example": -4.2,
+          "description": "Cancel price of the item"
+        },
+        "cancelReasonId": {
+          "type": "string",
+          "format": "uuid",
+          "example": "2f4ab79e-ac9d-473c-974f-02417af40fe6",
+          "description": "The id of the reason of the cancellation"
+        },
+        "discountAmount": {
+          "type": "number",
+          "example": 1.0,
+          "description": "Amount of discounts contained on canceled item"
+        },
+        "invoiceCanceledItemId": {
+          "type": "string",
+          "format": "uuid",
+          "example": "ced058e0-ddc8-40f4-8387-c186091b3c98",
+          "description": "Unique id of the canceled item"
+        },
+        "parentInvoiceCanceledItemId": {
+          "type": "string",
+          "format": "uuid",
+          "example": "4d3408bf-c93b-4541-9976-bb58c59250ed",
+          "description": "The id of the parent canceled item"
+        },
+        "productId": {
+          "type": "string",
+          "format": "uuid",
+          "example": "3cd26c7c-c86a-4dd3-bde5-ac2ff16c49d7",
+          "description": "Unique product id of the item"
+        },
+        "quantity": {
+          "type": "number",
+          "example": 2.0,
+          "description": "Quantity of the item"
+        },
+        "taxRate": {
+          "type": "number",
+          "example": 19.0,
+          "description": "Tax rate of the item"
+        }
+      },
+      "title": "InvoiceCanceledItem"
+    },
+    "InvoiceDiscount": {
+      "type": "object",
+      "properties": {
+        "discountId": {
+          "type": "string",
+          "format": "uuid",
+          "example": "4e5d9e7e-ff20-4ae3-9b24-4fde1130cb1c",
+          "description": "Unique id of the discount"
+        },
+        "name": {
+          "type": "string",
+          "example": "Pizza Wednesday",
+          "description": "Human readable name of the discount"
+        },
+        "number": {
+          "type": "string",
+          "example": 137,
+          "description": "Human readable numeric identifier of the discount"
+        },
+        "value": {
+          "type": "number",
+          "example": 42.42,
+          "description": "Value of the discount"
+        }
+      },
+      "title": "InvoiceDiscount"
+    },
+    "InvoiceItem": {
+      "type": "object",
+      "properties": {
+        "invoiceItemId": {
+          "type": "string",
+          "format": "uuid",
+          "example": "50192e3c-f66f-4d71-a7e2-70cf5989f9f8",
+          "description": "Unique id the item"
+        },
+        "parentInvoiceItemId": {
+          "type": "string",
+          "format": "uuid",
+          "example": "4d3408bf-c93b-4541-9976-bb58c59250ed",
+          "description": "The id of the parent item"
+        },
+        "price": {
+          "type": "number",
+          "example": 4.2,
+          "description": "Price of the item"
+        },
+        "productId": {
+          "type": "string",
+          "format": "uuid",
+          "example": "3cd26c7c-c86a-4dd3-bde5-ac2ff16c49d7",
+          "description": "Unique product id of the item"
+        },
+        "quantity": {
+          "type": "number",
+          "example": 2.0,
+          "description": "Quantity of the item"
+        },
+        "taxRate": {
+          "type": "number",
+          "example": 19.0,
+          "description": "Tax rate of the item"
+        }
+      },
+      "title": "InvoiceItem"
+    },
+    "InvoiceItemDiscount": {
+      "type": "object",
+      "properties": {
+        "discountId": {
+          "type": "string",
+          "format": "uuid",
+          "example": "4e5d9e7e-ff20-4ae3-9b24-4fde1130cb1c",
+          "description": "Unique id of the discount"
+        },
+        "invoiceItemId": {
+          "type": "string",
+          "format": "uuid",
+          "example": "4e5d9e7e-ff20-4ae3-9b24-4fde1130cb1c",
+          "description": "Unique id of the referencing invoice item"
+        },
+        "name": {
+          "type": "string",
+          "example": "Pizza Wednesday",
+          "description": "Human readable name of the discount"
+        },
+        "number": {
+          "type": "string",
+          "example": 137,
+          "description": "Human readable numeric identifier of the discount"
+        },
+        "value": {
+          "type": "number",
+          "example": 42.42,
+          "description": "Value of the discount"
+        }
+      },
+      "title": "InvoiceItemDiscount"
+    },
+    "InvoiceItemSurcharge": {
+      "type": "object",
+      "properties": {
+        "invoiceItemId": {
+          "type": "string",
+          "format": "uuid",
+          "example": "4e5d9e7e-ff20-4ae3-9b24-4fde1130cb1c",
+          "description": "Unique id of the referencing invoice item"
+        },
+        "name": {
+          "type": "string",
+          "example": "Premium Pizza",
+          "description": "Human readable name of the surcharge"
+        },
+        "number": {
+          "type": "string",
+          "example": 137,
+          "description": "Human readable numeric identifier of the surcharge"
+        },
+        "surchargeId": {
+          "type": "string",
+          "format": "uuid",
+          "example": "e161299c-83a3-4c66-bf60-996d0369ce23",
+          "description": "Unique id of the surcharge"
+        },
+        "value": {
+          "type": "number",
+          "example": 42.42,
+          "description": "Value of the surcharge"
+        }
+      },
+      "title": "InvoiceItemSurcharge"
+    },
+    "InvoiceSurcharge": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "Premium Pizza",
+          "description": "Human readable name of the surcharge"
+        },
+        "number": {
+          "type": "string",
+          "example": 137,
+          "description": "Human readable numeric identifier of the surcharge"
+        },
+        "surchargeId": {
+          "type": "string",
+          "format": "uuid",
+          "example": "e161299c-83a3-4c66-bf60-996d0369ce23",
+          "description": "Unique id of the surcharge"
+        },
+        "value": {
+          "type": "number",
+          "example": 42.42,
+          "description": "Value of the surcharge"
+        }
+      },
+      "title": "InvoiceSurcharge"
+    },
+    "MainGroup": {
+      "type": "object",
+      "properties": {
+        "mainGroupId": {
+          "type": "string",
+          "format": "uuid",
+          "example": "f11af49d-c656-4b71-a05a-d5164a1a186b",
+          "description": "Unique id the main group"
+        },
+        "name": {
+          "type": "string",
+          "example": "Speisen",
+          "description": "The name of the main group"
+        },
+        "number": {
+          "type": "string",
+          "example": 13,
+          "description": "The number of the main group"
+        }
+      },
+      "title": "MainGroup"
+    },
+    "ManagedArticle": {
+      "type": "object",
+      "properties": {
+        "managedArticleName": {
+          "type": "string",
+          "example": "Potatoes 1kg",
+          "description": "The name of the managed article"
+        },
+        "managedArticleNo": {
+          "type": "integer",
+          "format": "int32",
+          "example": 102,
+          "description": "The number of the managed article"
+        },
+        "price": {
+          "type": "number",
+          "example": 3.65,
+          "description": "The price of the managed article"
+        },
+        "values": {
+          "type": "array",
+          "example": [
+            1.2,
+            4.1,
+            3.2
+          ],
+          "description": "The entry values of the managed article",
+          "items": {
+            "type": "number"
+          }
+        },
+        "writeableByInputMask": {
+          "type": "array",
+          "example": "true, true, false",
+          "description": "The writeable values for the entry values",
+          "items": {
+            "type": "boolean"
+          }
+        }
+      },
+      "title": "ManagedArticle"
+    },
+    "Operator": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Operator name"
+        },
+        "operatorId": {
+          "type": "string",
+          "format": "uuid",
+          "description": "Unique operator id"
+        }
+      },
+      "title": "Operator"
+    },
+    "PartnerCredentials": {
+      "type": "object",
+      "required": [
+        "login",
+        "password"
+      ],
+      "properties": {
+        "login": {
+          "type": "string",
+          "description": "User login"
+        },
+        "password": {
+          "type": "string",
+          "description": "User password"
+        }
+      },
+      "title": "PartnerCredentials"
+    },
+    "Product": {
+      "type": "object",
+      "properties": {
+        "mainGroupId": {
+          "type": "string",
+          "format": "uuid",
+          "example": "b6c5b208-f0d3-4481-aa78-fe580fdf27af",
+          "description": "The id of the main group a that is assigned to this product"
+        },
+        "name": {
+          "type": "string",
+          "example": "Porterhouse-Steak",
+          "description": "The name of the product"
+        },
+        "number": {
+          "type": "string",
+          "example": 105,
+          "description": "The number of the product"
+        },
+        "productGroupId": {
+          "type": "string",
+          "format": "uuid",
+          "example": "d39ec3ad-5d9b-4cab-8d75-785ff547a8d3",
+          "description": "The id of the product group that is assigned to this product"
+        },
+        "productId": {
+          "type": "string",
+          "format": "uuid",
+          "example": "ade02824-32ba-4157-8122-807a48b13268",
+          "description": "Unique id the product"
+        }
+      },
+      "title": "Product"
+    },
+    "ProductGroup": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "Steaks",
+          "description": "The name of the product group"
+        },
+        "number": {
+          "type": "string",
+          "example": 7,
+          "description": "The number of the product group"
+        },
+        "productGroupId": {
+          "type": "string",
+          "format": "uuid",
+          "example": "ade02824-32ba-4157-8122-807a48b13268",
+          "description": "Unique id the product group"
+        }
+      },
+      "title": "ProductGroup"
+    },
+    "Site": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Site name"
+        },
+        "siteId": {
+          "type": "string",
+          "format": "uuid",
+          "description": "Unique site id"
+        }
+      },
+      "title": "Site"
+    },
+    "StaffAttendance": {
+      "type": "object",
+      "properties": {
+        "occurredAt": {
+          "type": "string",
+          "format": "date",
+          "example": "2022-02-11T12:34:56",
+          "description": "Timestamp when the attendance change occurred"
+        },
+        "serialNumber": {
+          "type": "string",
+          "example": 123456,
+          "description": "Serial number of the used cash register"
+        },
+        "staffAttendanceId": {
+          "type": "string",
+          "format": "uuid",
+          "example": "e161299c-83a3-4c66-bf60-996d0369ce23",
+          "description": "Unique id for this attendance entry"
+        },
+        "staffName": {
+          "type": "string",
+          "example": "Best Cashier",
+          "description": "Name of the staff"
+        },
+        "staffNumber": {
+          "type": "integer",
+          "format": "int64",
+          "example": 123,
+          "description": "Number of the staff"
+        },
+        "state": {
+          "type": "string",
+          "example": "SIGN_IN_AS_CASHIER",
+          "description": "Attendance state",
+          "enum": [
+            "INFORMATION",
+            "INTERRUPTION",
+            "PAID_PAUSE",
+            "PAUSE",
+            "SIGN_IN_AS_CASHIER",
+            "SIGN_IN_AS_WORKER",
+            "SIGN_OFF"
+          ]
+        }
+      },
+      "title": "StaffAttendance"
+    },
+    "Token": {
+      "type": "object",
+      "properties": {
+        "token": {
+          "type": "string"
+        }
+      },
+      "title": "Token"
+    },
+    "VndError": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "type": "string"
+        },
+        "path": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      },
+      "title": "VndError"
+    },
+    "VndErrors": {
+      "type": "object",
+      "properties": {
+        "_embedded": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/VndError"
+            }
+          }
+        },
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "logref": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        },
+        "request": {
+          "type": "string"
+        },
+        "service": {
+          "type": "string"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "timestamp": {
+          "type": "string",
+          "format": "date"
+        },
+        "values": {
+          "type": "object"
+        }
+      },
+      "title": "VndErrors"
+    }
+  }
+}
