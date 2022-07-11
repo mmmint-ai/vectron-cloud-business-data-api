@@ -81,6 +81,112 @@ export const TransactionApiAxiosParamCreator = function (configuration?: Configu
                 options: localVarRequestOptions,
             };
         },
+        /**
+         * Get transactions for site
+         * @summary Get all transactions for site
+         * @param {string} siteId Site Id
+         * @param {string} [id] Pass invoice id as offset to receive the last n invoices
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getTransactionsUsingGET1: async (siteId: string, id?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'siteId' is not null or undefined
+            if (siteId === null || siteId === undefined) {
+                throw new RequiredError('siteId','Required parameter siteId was null or undefined when calling getTransactionsUsingGET1.');
+            }
+            const localVarPath = `/v2/site/{siteId}/transactions`
+                .replace(`{${"siteId"}}`, encodeURIComponent(String(siteId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, 'https://example.com');
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions :AxiosRequestConfig = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication api_token_sec_key required
+            if (configuration && configuration.apiKey) {
+                const localVarApiKeyValue = typeof configuration.apiKey === 'function'
+                    ? await configuration.apiKey("X-API-Token")
+                    : await configuration.apiKey;
+                localVarHeaderParameter["X-API-Token"] = localVarApiKeyValue;
+            }
+
+            if (id !== undefined) {
+                localVarQueryParameter['id'] = id;
+            }
+
+            const query = new URLSearchParams(localVarUrlObj.search);
+            for (const key in localVarQueryParameter) {
+                query.set(key, localVarQueryParameter[key]);
+            }
+            for (const key in options.params) {
+                query.set(key, options.params[key]);
+            }
+            localVarUrlObj.search = (new URLSearchParams(query)).toString();
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Get transactions for site
+         * @summary Get all transactions for site
+         * @param {string} siteId Site Id
+         * @param {string} [id] Pass invoice id as offset to receive the last n invoices
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getTransactionsUsingGET2: async (siteId: string, id?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'siteId' is not null or undefined
+            if (siteId === null || siteId === undefined) {
+                throw new RequiredError('siteId','Required parameter siteId was null or undefined when calling getTransactionsUsingGET2.');
+            }
+            const localVarPath = `/v3/site/{siteId}/transactions`
+                .replace(`{${"siteId"}}`, encodeURIComponent(String(siteId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, 'https://example.com');
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions :AxiosRequestConfig = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication api_token_sec_key required
+            if (configuration && configuration.apiKey) {
+                const localVarApiKeyValue = typeof configuration.apiKey === 'function'
+                    ? await configuration.apiKey("X-API-Token")
+                    : await configuration.apiKey;
+                localVarHeaderParameter["X-API-Token"] = localVarApiKeyValue;
+            }
+
+            if (id !== undefined) {
+                localVarQueryParameter['id'] = id;
+            }
+
+            const query = new URLSearchParams(localVarUrlObj.search);
+            for (const key in localVarQueryParameter) {
+                query.set(key, localVarQueryParameter[key]);
+            }
+            for (const key in options.params) {
+                query.set(key, options.params[key]);
+            }
+            localVarUrlObj.search = (new URLSearchParams(query)).toString();
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
+                options: localVarRequestOptions,
+            };
+        },
     }
 };
 
@@ -101,6 +207,36 @@ export const TransactionApiFp = function(configuration?: Configuration) {
          */
         async getTransactionsUsingGET(siteId: string, id?: string, order?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<Array<DetailedInvoice>>>> {
             const localVarAxiosArgs = await TransactionApiAxiosParamCreator(configuration).getTransactionsUsingGET(siteId, id, order, options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * Get transactions for site
+         * @summary Get all transactions for site
+         * @param {string} siteId Site Id
+         * @param {string} [id] Pass invoice id as offset to receive the last n invoices
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getTransactionsUsingGET1(siteId: string, id?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<Array<DetailedInvoice>>>> {
+            const localVarAxiosArgs = await TransactionApiAxiosParamCreator(configuration).getTransactionsUsingGET1(siteId, id, options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * Get transactions for site
+         * @summary Get all transactions for site
+         * @param {string} siteId Site Id
+         * @param {string} [id] Pass invoice id as offset to receive the last n invoices
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getTransactionsUsingGET2(siteId: string, id?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<Array<DetailedInvoice>>>> {
+            const localVarAxiosArgs = await TransactionApiAxiosParamCreator(configuration).getTransactionsUsingGET2(siteId, id, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -127,6 +263,28 @@ export const TransactionApiFactory = function (configuration?: Configuration, ba
         async getTransactionsUsingGET(siteId: string, id?: string, order?: string, options?: AxiosRequestConfig): Promise<AxiosResponse<Array<DetailedInvoice>>> {
             return TransactionApiFp(configuration).getTransactionsUsingGET(siteId, id, order, options).then((request) => request(axios, basePath));
         },
+        /**
+         * Get transactions for site
+         * @summary Get all transactions for site
+         * @param {string} siteId Site Id
+         * @param {string} [id] Pass invoice id as offset to receive the last n invoices
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getTransactionsUsingGET1(siteId: string, id?: string, options?: AxiosRequestConfig): Promise<AxiosResponse<Array<DetailedInvoice>>> {
+            return TransactionApiFp(configuration).getTransactionsUsingGET1(siteId, id, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Get transactions for site
+         * @summary Get all transactions for site
+         * @param {string} siteId Site Id
+         * @param {string} [id] Pass invoice id as offset to receive the last n invoices
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getTransactionsUsingGET2(siteId: string, id?: string, options?: AxiosRequestConfig): Promise<AxiosResponse<Array<DetailedInvoice>>> {
+            return TransactionApiFp(configuration).getTransactionsUsingGET2(siteId, id, options).then((request) => request(axios, basePath));
+        },
     };
 };
 
@@ -149,5 +307,29 @@ export class TransactionApi extends BaseAPI {
      */
     public async getTransactionsUsingGET(siteId: string, id?: string, order?: string, options?: AxiosRequestConfig) : Promise<AxiosResponse<Array<DetailedInvoice>>> {
         return TransactionApiFp(this.configuration).getTransactionsUsingGET(siteId, id, order, options).then((request) => request(this.axios, this.basePath));
+    }
+    /**
+     * Get transactions for site
+     * @summary Get all transactions for site
+     * @param {string} siteId Site Id
+     * @param {string} [id] Pass invoice id as offset to receive the last n invoices
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof TransactionApi
+     */
+    public async getTransactionsUsingGET1(siteId: string, id?: string, options?: AxiosRequestConfig) : Promise<AxiosResponse<Array<DetailedInvoice>>> {
+        return TransactionApiFp(this.configuration).getTransactionsUsingGET1(siteId, id, options).then((request) => request(this.axios, this.basePath));
+    }
+    /**
+     * Get transactions for site
+     * @summary Get all transactions for site
+     * @param {string} siteId Site Id
+     * @param {string} [id] Pass invoice id as offset to receive the last n invoices
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof TransactionApi
+     */
+    public async getTransactionsUsingGET2(siteId: string, id?: string, options?: AxiosRequestConfig) : Promise<AxiosResponse<Array<DetailedInvoice>>> {
+        return TransactionApiFp(this.configuration).getTransactionsUsingGET2(siteId, id, options).then((request) => request(this.axios, this.basePath));
     }
 }

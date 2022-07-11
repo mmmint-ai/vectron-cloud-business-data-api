@@ -291,7 +291,8 @@
           {
             "api_token_sec_key": []
           }
-        ]
+        ],
+        "deprecated": true
       }
     },
     "/v1/site/{siteId}/transactions": {
@@ -321,6 +322,345 @@
               "ASC",
               "DESC"
             ]
+          },
+          {
+            "name": "siteId",
+            "in": "path",
+            "description": "Site Id",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of transactions",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/DetailedInvoice"
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "api_token_sec_key": []
+          }
+        ],
+        "deprecated": true
+      }
+    },
+    "/v2/site/{siteId}/staff-attendances": {
+      "get": {
+        "tags": [
+          "StaffAttendance"
+        ],
+        "summary": "Get all staff attendances for site",
+        "description": "Get staff attendances for site",
+        "operationId": "getStaffAttendanceBySiteUsingGET_1",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "Pass attendance id as offset to receive the last or next n attendance entries",
+            "required": false,
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "name": "siteId",
+            "in": "path",
+            "description": "Site Id",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of staff attendances",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/StaffAttendance"
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "api_token_sec_key": []
+          }
+        ]
+      }
+    },
+    "/v2/site/{siteId}/transactions": {
+      "get": {
+        "tags": [
+          "Transaction"
+        ],
+        "summary": "Get all transactions for site",
+        "description": "Get transactions for site",
+        "operationId": "getTransactionsUsingGET_1",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "Pass invoice id as offset to receive the last n invoices",
+            "required": false,
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "name": "siteId",
+            "in": "path",
+            "description": "Site Id",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of transactions",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/DetailedInvoice"
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "api_token_sec_key": []
+          }
+        ]
+      }
+    },
+    "/v3/operator/{operatorId}/sites": {
+      "get": {
+        "tags": [
+          "Site"
+        ],
+        "summary": "Get all sites for operator",
+        "description": "Get sites for operator",
+        "operationId": "getSitesUsingGET_1",
+        "parameters": [
+          {
+            "name": "operatorId",
+            "in": "path",
+            "description": "Operator Id",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of sites",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Site"
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "api_token_sec_key": []
+          }
+        ]
+      }
+    },
+    "/v3/site/{siteId}/data-entries": {
+      "get": {
+        "tags": [
+          "DataEntry"
+        ],
+        "summary": "Get all data entries for site",
+        "description": "Get data entries for site",
+        "operationId": "getDataEntriesBySiteUsingGET_1",
+        "parameters": [
+          {
+            "name": "siteId",
+            "in": "path",
+            "description": "Site Id",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of data entries",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/DataEntry"
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "api_token_sec_key": []
+          }
+        ]
+      }
+    },
+    "/v3/site/{siteId}/staff-attendances": {
+      "get": {
+        "tags": [
+          "StaffAttendance"
+        ],
+        "summary": "Get all staff attendances for site",
+        "description": "Get staff attendances for site",
+        "operationId": "getStaffAttendanceBySiteUsingGET_2",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "Pass attendance id as offset to receive the last or next n attendance entries",
+            "required": false,
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "name": "siteId",
+            "in": "path",
+            "description": "Site Id",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of staff attendances",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/StaffAttendance"
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "api_token_sec_key": []
+          }
+        ]
+      }
+    },
+    "/v3/site/{siteId}/transactions": {
+      "get": {
+        "tags": [
+          "Transaction"
+        ],
+        "summary": "Get all transactions for site",
+        "description": "Get transactions for site",
+        "operationId": "getTransactionsUsingGET_2",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "Pass invoice id as offset to receive the last n invoices",
+            "required": false,
+            "type": "string",
+            "format": "uuid"
           },
           {
             "name": "siteId",

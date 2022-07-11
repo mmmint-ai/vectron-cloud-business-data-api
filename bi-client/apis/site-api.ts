@@ -71,6 +71,54 @@ export const SiteApiAxiosParamCreator = function (configuration?: Configuration)
                 options: localVarRequestOptions,
             };
         },
+        /**
+         * Get sites for operator
+         * @summary Get all sites for operator
+         * @param {string} operatorId Operator Id
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getSitesUsingGET1: async (operatorId: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'operatorId' is not null or undefined
+            if (operatorId === null || operatorId === undefined) {
+                throw new RequiredError('operatorId','Required parameter operatorId was null or undefined when calling getSitesUsingGET1.');
+            }
+            const localVarPath = `/v3/operator/{operatorId}/sites`
+                .replace(`{${"operatorId"}}`, encodeURIComponent(String(operatorId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, 'https://example.com');
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions :AxiosRequestConfig = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication api_token_sec_key required
+            if (configuration && configuration.apiKey) {
+                const localVarApiKeyValue = typeof configuration.apiKey === 'function'
+                    ? await configuration.apiKey("X-API-Token")
+                    : await configuration.apiKey;
+                localVarHeaderParameter["X-API-Token"] = localVarApiKeyValue;
+            }
+
+            const query = new URLSearchParams(localVarUrlObj.search);
+            for (const key in localVarQueryParameter) {
+                query.set(key, localVarQueryParameter[key]);
+            }
+            for (const key in options.params) {
+                query.set(key, options.params[key]);
+            }
+            localVarUrlObj.search = (new URLSearchParams(query)).toString();
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
+                options: localVarRequestOptions,
+            };
+        },
     }
 };
 
@@ -89,6 +137,20 @@ export const SiteApiFp = function(configuration?: Configuration) {
          */
         async getSitesUsingGET(operatorId: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<Array<Site>>>> {
             const localVarAxiosArgs = await SiteApiAxiosParamCreator(configuration).getSitesUsingGET(operatorId, options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * Get sites for operator
+         * @summary Get all sites for operator
+         * @param {string} operatorId Operator Id
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getSitesUsingGET1(operatorId: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<Array<Site>>>> {
+            const localVarAxiosArgs = await SiteApiAxiosParamCreator(configuration).getSitesUsingGET1(operatorId, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -113,6 +175,16 @@ export const SiteApiFactory = function (configuration?: Configuration, basePath?
         async getSitesUsingGET(operatorId: string, options?: AxiosRequestConfig): Promise<AxiosResponse<Array<Site>>> {
             return SiteApiFp(configuration).getSitesUsingGET(operatorId, options).then((request) => request(axios, basePath));
         },
+        /**
+         * Get sites for operator
+         * @summary Get all sites for operator
+         * @param {string} operatorId Operator Id
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getSitesUsingGET1(operatorId: string, options?: AxiosRequestConfig): Promise<AxiosResponse<Array<Site>>> {
+            return SiteApiFp(configuration).getSitesUsingGET1(operatorId, options).then((request) => request(axios, basePath));
+        },
     };
 };
 
@@ -133,5 +205,16 @@ export class SiteApi extends BaseAPI {
      */
     public async getSitesUsingGET(operatorId: string, options?: AxiosRequestConfig) : Promise<AxiosResponse<Array<Site>>> {
         return SiteApiFp(this.configuration).getSitesUsingGET(operatorId, options).then((request) => request(this.axios, this.basePath));
+    }
+    /**
+     * Get sites for operator
+     * @summary Get all sites for operator
+     * @param {string} operatorId Operator Id
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof SiteApi
+     */
+    public async getSitesUsingGET1(operatorId: string, options?: AxiosRequestConfig) : Promise<AxiosResponse<Array<Site>>> {
+        return SiteApiFp(this.configuration).getSitesUsingGET1(operatorId, options).then((request) => request(this.axios, this.basePath));
     }
 }
