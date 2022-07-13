@@ -4,7 +4,6 @@ import { Token } from "./bi-client/models";
 import axios, { AxiosRequestConfig } from "./bi-client/node_modules/axios";
 import "dotenv/config";
 require("dotenv").config();
-console.log(process.env);
 
 async function main(
   siteId: string,
@@ -21,27 +20,26 @@ async function main(
     accessToken: authKey,
   };
   const authApi = new AuthorizationApi(conf);
-  const tokenResult = await authApi.loginPartnerUsingPOST(
-    {
-      login: login,
-      password: password,
-    }
-  );
-  const token: Token = tokenResult.data;
+  // const tokenResult = await authApi.loginPartnerUsingPOST(
+  //   {
+  //     login: login,
+  //     password: password,
+  //   }
+  // );
+  // const token: Token = tokenResult.data;
 
   /**
    * Attempt the data fetch
    */
   const headers: any = [];
-  headers['Authorization'] = `${token.token}`;
+  headers["X-Authorization-Token"] = `${authKey}`;
   const config: AxiosRequestConfig = {
     headers: headers,
   };
-  conf.accessToken = authKey;
   const dataApi = new DataEntryApi(conf);
   try {
     const res = await dataApi.getDataEntriesBySiteUsingGET1(siteId, config);
-    console.log(res);
+    console.log(res.data);
   } catch (error) {
     if (axios.isAxiosError(error)) {
       console.log(error.toJSON());
