@@ -3,10 +3,13 @@
  * Unauthorized copying of this file, via any medium is strictly prohibited.
  * Proprietary and confidential to MMM Intelligence UG (haftungsbeschränkt).
  */
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
+/* eslint-reason Because the envs are checked no-non-null on the start */
 
 import "dotenv/config";
 import { AuthInfo } from "./vectron-client/AuthInfo";
 import { Client } from "./vectron-client/client";
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 require("dotenv").config();
 
 /**
@@ -15,8 +18,8 @@ require("dotenv").config();
 const envs = ["SITE_ID", "API_KEY", "AUTH_KEY", "PASSWORD", "LOGIN"];
 envs.forEach((e) => {
   if (!process.env[e]) {
-throw new Error(`${e} is not set`);
-}
+    throw new Error(`${e} is not set`);
+  }
 });
 
 const authInfo: AuthInfo = {
