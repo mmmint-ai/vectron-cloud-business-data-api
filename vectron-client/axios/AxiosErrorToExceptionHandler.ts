@@ -1,6 +1,12 @@
+/**
+ * Copyright 2021 mmmint.ai info@mmmint.ai - All Rights Reserved.
+ * Unauthorized copying of this file, via any medium is strictly prohibited.
+ * Proprietary and confidential to MMM Intelligence UG (haftungsbeschränkt).
+ */
 import { NetworkError } from './error/NetworkError';
 import { KnownHttpExceptionMap } from './error/KnownHttpExceptionMap';
 import { IHttpExceptionDetail } from './error/IHttpExceptionDetail';
+
 /**
  * Copyright 2021 mmmint.ai info@mmmint.ai - All Rights Reserved.
  * Unauthorized copying of this file, via any medium is strictly prohibited.
@@ -15,6 +21,7 @@ export class HttpExceptionDetailMapper {
   /**
    * Maps response data to @see IHttpExceptionDetail
    *
+   * @param data
    * @returns {IHttpExceptionDetail} or undefined if not mappable
    */
   public map(data: any): IHttpExceptionDetail | undefined {
@@ -45,6 +52,7 @@ export class AxiosErrorToExceptionHandler implements IErrorHandler {
   private readonly exceptionDetailMapper: HttpExceptionDetailMapper;
 
   /**
+   * @param mapper
    * @class the AxiosErrorToExceptionHandler instance
    */
   constructor(mapper: HttpExceptionDetailMapper = new HttpExceptionDetailMapper()) {

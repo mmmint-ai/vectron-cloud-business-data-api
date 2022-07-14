@@ -3,9 +3,3 @@
  * Unauthorized copying of this file, via any medium is strictly prohibited.
  * Proprietary and confidential to MMM Intelligence UG (haftungsbeschränkt).
  */
-export interface AuthInfo {
-  login: string;
-  password: string;
-  authKey: string;
-  apiKey: string;
-}

@@ -9,6 +9,7 @@ import { IHttpExceptionDetail } from "./IHttpExceptionDetail";
 /**
  * The exception that is thrown when a request has client errors.
  * Make sure to add the exception to the @see KnownHttpExceptionMap.
+ *
  * @see https://developer.mozilla.org/en-US/docs/Web/HTTP/Status#client_error_responses
  */
 export class HttpException extends Error {
@@ -18,6 +19,8 @@ export class HttpException extends Error {
   public data?: IHttpExceptionDetail;
 
   /**
+   * @param message
+   * @param data
    * @class Initialize HttpException
    */
   constructor(message: string, data?: IHttpExceptionDetail) {
@@ -35,6 +38,8 @@ export class HttpException extends Error {
  */
 export class BadRequestException extends HttpException {
   /**
+   * @param message
+   * @param data
    * @class Initialize BadRequestException
    */
   constructor(message: string, data?: IHttpExceptionDetail) {
@@ -49,6 +54,8 @@ export class BadRequestException extends HttpException {
  */
 export class UnauthorizedException extends HttpException {
   /**
+   * @param message
+   * @param data
    * @class Initialize UnauthorizedException
    */
   constructor(message: string, data?: IHttpExceptionDetail) {
@@ -63,6 +70,8 @@ export class UnauthorizedException extends HttpException {
  */
 export class ForbiddenException extends HttpException {
   /**
+   * @param message
+   * @param data
    * @class Initialize ForbiddenException
    */
   constructor(message: string, data?: IHttpExceptionDetail) {
@@ -77,6 +86,8 @@ export class ForbiddenException extends HttpException {
  */
 export class NotFoundException extends HttpException {
   /**
+   * @param message
+   * @param data
    * @class Initialize NotFoundException
    */
   constructor(message: string, data?: IHttpExceptionDetail) {
@@ -91,6 +102,8 @@ export class NotFoundException extends HttpException {
  */
 export class MethodNotAllowedException extends HttpException {
   /**
+   * @param message
+   * @param data
    * @class Initialize NotFoundException
    */
   constructor(message: string, data?: IHttpExceptionDetail) {
@@ -105,6 +118,8 @@ export class MethodNotAllowedException extends HttpException {
  */
 export class ConflictException extends HttpException {
   /**
+   * @param message
+   * @param data
    * @class Initialize ConflictException
    */
   constructor(message: string, data?: IHttpExceptionDetail) {
@@ -119,6 +134,8 @@ export class ConflictException extends HttpException {
  */
 export class InternalServerErrorException extends HttpException {
   /**
+   * @param message
+   * @param data
    * @class Initialize NotFoundException
    */
   constructor(message: string, data?: IHttpExceptionDetail) {
@@ -133,6 +150,8 @@ export class InternalServerErrorException extends HttpException {
  */
 export class ServiceNotImplementedException extends HttpException {
   /**
+   * @param message
+   * @param data
    * @class Initialize NotFoundException
    */
   constructor(message: string, data?: IHttpExceptionDetail) {
@@ -147,6 +166,8 @@ export class ServiceNotImplementedException extends HttpException {
  */
 export class BadGatewayException extends HttpException {
   /**
+   * @param message
+   * @param data
    * @class Initialize NotFoundException
    */
   constructor(message: string, data?: IHttpExceptionDetail) {
@@ -161,6 +182,8 @@ export class BadGatewayException extends HttpException {
  */
 export class ServiceUnavailableException extends HttpException {
   /**
+   * @param message
+   * @param data
    * @class Initialize NotFoundException
    */
   constructor(message: string, data?: IHttpExceptionDetail) {
@@ -175,6 +198,8 @@ export class ServiceUnavailableException extends HttpException {
  */
 export class GatewayTimeoutException extends HttpException {
   /**
+   * @param message
+   * @param data
    * @class Initialize NotFoundException
    */
   constructor(message: string, data?: IHttpExceptionDetail) {

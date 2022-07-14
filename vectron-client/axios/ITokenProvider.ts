@@ -10,6 +10,7 @@ import { AxiosRequestConfig } from "axios";
  * Token provider interface as a axios interceptor.
  */
 export interface ITokenProvider {
+
   /**
    * Add authentication token to request.
    *

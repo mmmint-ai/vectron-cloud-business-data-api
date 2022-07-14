@@ -14,7 +14,7 @@ export class EmptyTokenProvider implements ITokenProvider {
   /**
    * Add nothing to the request.
    *
-   * @param AxiosRequestConfig
+   * @param config
    * @returns AxiosRequestConfig
    */
   async addTokenToRequest(config: AxiosRequestConfig) {

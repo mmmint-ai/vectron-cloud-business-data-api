@@ -8,6 +8,7 @@
  * The ExceptionViewmodel returned from the API.
  */
 export interface IHttpExceptionDetail {
+
   /**
    * Http Error code
    */

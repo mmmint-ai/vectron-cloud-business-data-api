@@ -8,6 +8,7 @@
  * Simple handler for handling errors.
  */
 export interface IErrorHandler {
+
   /**
    * Handles the error.
    *

@@ -6,10 +6,12 @@
 
 /**
  * The exception that is thrown when an Axios request failes without a known HTTP status code.
+ *
  * @see https://github.com/axios/axios/issues/383#issuecomment-234079506
  */
 export class NetworkError extends Error {
   /**
+   * @param message
    * @class Initialize NetworkError
    */
   constructor(message: string) {

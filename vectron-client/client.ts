@@ -1,3 +1,8 @@
+/**
+ * Copyright 2021 mmmint.ai info@mmmint.ai - All Rights Reserved.
+ * Unauthorized copying of this file, via any medium is strictly prohibited.
+ * Proprietary and confidential to MMM Intelligence UG (haftungsbeschränkt).
+ */
 import { EmptyTokenProvider } from "./axios/EmptyTokenProvider";
 import { AxiosInstanceProvider } from "./axios/AxiosInstanceProvider";
 import { DataEntryApi } from "../bi-proxy/api";
@@ -24,6 +29,7 @@ export class Client {
   /**
    * @class Client
    * @param authInfo Authentication information
+   * @param axiosInstanceProvider
    */
   constructor(
     private authInfo: AuthInfo,
@@ -36,15 +42,25 @@ export class Client {
       apiKey: authInfo.apiKey,
     };
 
-    if (!this.authInfo.apiKey) throw new Error(`apiKey is not set`);
-    if (!this.authInfo.authKey) throw new Error(`apiKey is not set`);
+    if (!this.authInfo.apiKey) {
+throw new Error(`apiKey is not set`);
+}
+    if (!this.authInfo.authKey) {
+throw new Error(`apiKey is not set`);
+}
 
     const axios = this.axiosInstanceProvider.create();
     this.dataEntryApi = new DataEntryApi(this.conf, BASE_PATH, axios);
   }
 
+  /**
+   *
+   * @param siteId
+   */
   async getDataEntries(siteId: string): Promise<DataEntry[]> {
-    if (!siteId) throw new Error(`siteId is not set`);
+    if (!siteId) {
+throw new Error(`siteId is not set`);
+}
 
     const res = await this.dataEntryApi.getDataEntriesBySiteUsingGET1(
       siteId,
@@ -66,6 +82,7 @@ export class Client {
     const requestConfig: AxiosRequestConfig = {
       headers: headers,
     };
-    return requestConfig;
+    
+return requestConfig;
   }
 }

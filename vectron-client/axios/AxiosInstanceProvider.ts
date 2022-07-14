@@ -41,6 +41,7 @@ export class AxiosInstanceProvider {
    * @param tokenProvider the token provider
    * @param baseUrl - the base url of the axios client
    * @param timeout - the default timeout defaults to 60000
+   * @param errorHandlers
    */
   constructor(
     tokenProvider: ITokenProvider,
@@ -73,6 +74,7 @@ export class AxiosInstanceProvider {
 
   /**
    * Add a silent refresh token interceptor
+   *
    * @param axiosClient - the instance to add the provider.
    */
   addTokenProvider(axiosClient: AxiosInstance) {
@@ -91,7 +93,8 @@ export class AxiosInstanceProvider {
       (response) => response,
       (error) => {
         this.errorHandlers.forEach((handler) => handler.handle(error));
-        return Promise.reject(error);
+        
+return Promise.reject(error);
       }
     );
   }

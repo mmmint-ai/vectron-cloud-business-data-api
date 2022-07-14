@@ -10,6 +10,10 @@ import { IErrorHandler } from "./IErrorHandler";
  * Error handler that is called when an error occurs in the axios request and console logs stuff.
  */
 export class LogAxiosErrorHandler implements IErrorHandler {
+  /**
+   *
+   * @param error
+   */
   handle(error: any): any {
     console.log(error);
 
