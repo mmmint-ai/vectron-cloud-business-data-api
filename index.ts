@@ -6,7 +6,6 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-reason Because the envs are checked no-non-null on the start */
 
-import "dotenv/config";
 import { AuthInfo } from "./vectron-client/AuthInfo";
 import { Client } from "./vectron-client/client";
 // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -33,4 +32,8 @@ const authInfo: AuthInfo = {
  * Fetch data entries
  */
 const c = new Client(authInfo);
-c.getDataEntries(process.env.SITE_ID!);
+const invoices = c.getTransactions(process.env.SITE_ID!);
+
+invoices.then((v) => {
+  console.log(v.length);
+});
