@@ -2,31 +2,17 @@
   <v-card>
     <v-data-table
       :headers="headers"
-      :items="usreList"
+      :items="transactions"
       item-key="full_name"
       class="table-rounded"
       hide-default-footer
       disable-sort
     >
-      <!-- name -->
-      <template #[`item.full_name`]="{item}">
-        <div class="d-flex flex-column">
-          <span class="d-block font-weight-semibold text--primary text-truncate">{{ item.full_name }}</span>
-          <small>{{ item.post }}</small>
-        </div>
+      <template v-slot:item.total="{ item }">
+        {{ `${item.total} ${item.currency}` }}
       </template>
-      <template #[`item.salary`]="{item}">
-        {{ `$${item.salary}` }}
-      </template>
-      <!-- status -->
-      <template #[`item.status`]="{item}">
-        <v-chip
-          small
-          :color="statusColor[status[item.status]]"
-          class="font-weight-medium"
-        >
-          {{ status[item.status] }}
-        </v-chip>
+      <template v-slot:item.transactionAt="{ item }">
+        {{ new Date(item.transactionAt).toLocaleString()  }}
       </template>
     </v-data-table>
   </v-card>
@@ -34,45 +20,27 @@
 
 <script>
 import { mdiSquareEditOutline, mdiDotsVertical } from '@mdi/js'
-import data from './datatable-data'
+import store from '../../store'
 
 export default {
   setup() {
-    const statusColor = {
-      /* eslint-disable key-spacing */
-      Current: 'primary',
-      Professional: 'success',
-      Rejected: 'error',
-      Resigned: 'warning',
-      Applied: 'info',
-      /* eslint-enable key-spacing */
-    }
-
     return {
       headers: [
-        { text: 'NAME', value: 'full_name' },
-        { text: 'EMAIL', value: 'email' },
-        { text: 'DATE', value: 'start_date' },
-        { text: 'SALARY', value: 'salary' },
-        { text: 'AGE', value: 'age' },
-        { text: 'STATUS', value: 'status' },
+        { text: '#', value: 'invoiceNumber' },
+        { text: 'Date', value: 'transactionAt' },
+        { text: 'Total', value: 'total' },
       ],
-      usreList: data,
-      status: {
-        1: 'Current',
-        2: 'Professional',
-        3: 'Rejected',
-        4: 'Resigned',
-        5: 'Applied',
-      },
-      statusColor,
-
       // icons
       icons: {
         mdiSquareEditOutline,
         mdiDotsVertical,
       },
     }
+  },
+  computed: {
+    transactions: () => {
+      return store.state.transactions
+    },
   },
 }
 </script>

@@ -12,7 +12,7 @@
       <dashboard-card-total-earning></dashboard-card-total-earning>
     </v-col>
 
-    <v-col cols="12" md="4">
+    <!-- <v-col cols="12" md="4">
       <v-row class="match-height">
         <v-col cols="12" sm="6">
           <statistics-card-vertical
@@ -56,7 +56,7 @@
           ></statistics-card-vertical>
         </v-col>
       </v-row>
-    </v-col>
+    </v-col> -->
 
     <v-col cols="12">
       <dashboard-datatable></dashboard-datatable>
@@ -65,6 +65,8 @@
 </template>
 
 <script>
+import store from '../../store'
+
 // eslint-disable-next-line object-curly-newline
 import { mdiPoll, mdiLabelVariantOutline, mdiCurrencyUsd, mdiHelpCircleOutline } from '@mdi/js'
 import StatisticsCardVertical from '@/components/statistics-card/StatisticsCardVertical.vue'
@@ -90,15 +92,6 @@ export default {
     DashboardDatatable,
   },
   setup() {
-    const totalProfit = {
-      statTitle: 'Total Profit',
-      icon: mdiPoll,
-      color: 'success',
-      subtitle: 'Weekly Project',
-      statistics: '$25.6k',
-      change: '+42%',
-    }
-
     const totalSales = {
       statTitle: 'Refunds',
       icon: mdiCurrencyUsd,
@@ -128,14 +121,25 @@ export default {
     }
 
     return {
-      totalProfit,
       totalSales,
       newProject,
       salesQueries,
     }
   },
   mounted() {
-    this.$store.dispatch('getTransactions');
-  }
+    store.dispatch('getTransactions')
+  },
+  computed: {
+    totalProfit: () => {
+      const totalProfit = {
+        statTitle: 'Total Profit',
+        icon: mdiPoll,
+        color: 'success',
+        subtitle: 'Weekly Project',
+        statistics: store.getters.getTotal.toString(),
+      }
+      return totalProfit
+    },
+  },
 }
 </script>

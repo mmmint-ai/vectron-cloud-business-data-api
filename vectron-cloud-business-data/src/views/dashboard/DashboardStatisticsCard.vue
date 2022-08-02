@@ -52,6 +52,7 @@
 </template>
 
 <script>
+import store from '../../store'
 // eslint-disable-next-line object-curly-newline
 import { mdiAccountOutline, mdiCurrencyUsd, mdiTrendingUp, mdiDotsVertical, mdiLabelOutline } from '@mdi/js'
 
@@ -60,27 +61,22 @@ export default {
     const statisticsData = [
       {
         title: 'Sales',
-        total: '245k',
+        total: store.getters.getTotal.toString(),
       },
       {
         title: 'Customers',
-        total: '12.5k',
+        total: store.getters.getCountInvoices.toString(),
       },
       {
         title: 'Product',
-        total: '1.54k',
-      },
-      {
-        title: 'Revenue',
-        total: '$88k',
-      },
+        total: store.getters.getCountItems.toString(),
+      }
     ]
 
     const resolveStatisticsIconVariation = data => {
       if (data === 'Sales') return { icon: mdiTrendingUp, color: 'primary' }
       if (data === 'Customers') return { icon: mdiAccountOutline, color: 'success' }
       if (data === 'Product') return { icon: mdiLabelOutline, color: 'warning' }
-      if (data === 'Revenue') return { icon: mdiCurrencyUsd, color: 'info' }
 
       return { icon: mdiAccountOutline, color: 'success' }
     }
