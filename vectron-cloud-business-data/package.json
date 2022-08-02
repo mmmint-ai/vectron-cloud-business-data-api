@@ -1,28 +1,24 @@
 {
-  "name": "materio-free-vuetify-vuejs-admin-template",
-  "description": "Production ready carefully crafted most comprehensive admin template",
+  "name": "vectron-cloud-business-data-dashboard",
+  "description": "Dashboard for Vectron Cloud Business Data API",
   "license": "MIT",
-  "version": "1.0.3",
+  "version": "1.0.0",
   "author": {
-    "name": "ThemeSelection",
-    "url": "https://themeselection.com/"
+    "name": "Mark Warneke",
+    "url": "https://markwarneke.me/"
   },
   "bugs": {
-    "url": "https://github.com/themeselection/materio-vuetify-vuejs-admin-template-free/issues"
+    "url": "https://github.com/mmmint-ai/vectron-cloud-business-data-api/issues"
   },
   "private": false,
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/themeselection/materio-vuetify-vuejs-admin-template-free"
+    "url": "git+https://github.com/mmmint-ai/vectron-cloud-business-data-api"
   },
-  "homepage": "https://themeselection.com/demo/materio-vuetify-vuejs-admin-template-free/demo/",
+  "homepage": "https://mmmint.ai/",
   "keywords": [
-    "free template",
-    "vuejs admin",
-    "free admin template",
-    "free vuejs theme",
-    "free vuejs admin",
-    "free vuejs template"
+    "vectron",
+    "dashboard"
   ],
   "scripts": {
     "serve": "vue-cli-service serve",
