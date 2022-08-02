@@ -13,17 +13,16 @@
     <!-- tabs item -->
     <v-tabs-items v-model="tab">
       <v-tab-item>
-        <account-settings-account :account-data="accountSettingData.account"></account-settings-account>
+        <account-settings-account :account-data="accountSettingData.account" v-on:save="save"></account-settings-account>
       </v-tab-item>
 
-      <v-tab-item>
-        <account-settings-security></account-settings-security>
-      </v-tab-item>
     </v-tabs-items>
   </v-card>
 </template>
 
 <script>
+import store from '../../../store'
+
 import { mdiAccountOutline, mdiLockOpenOutline } from '@mdi/js'
 import { ref } from '@vue/composition-api'
 
@@ -41,24 +40,30 @@ export default {
 
     // tabs
     const tabs = [
-      { title: 'Account', icon: mdiAccountOutline },
-      { title: 'Security', icon: mdiLockOpenOutline },
+      { title: 'Account', icon: mdiAccountOutline }
     ]
 
     // account settings data
     const accountSettingData = {
       account: {
-        avatarImg: require('@/assets/images/avatars/1.png'),
-        username: 'johnDoe',
-        name: 'john Doe',
-        email: 'johnDoe@example.com',
-        role: 'Admin',
-        status: 'Active',
-        company: 'Google.inc',
+        username: store.state.username,
+        password: store.state.password,
+        siteId: store.state.siteId,
+        apiKey: store.state.apiKey,
+        authKey: store.state.authKey
       },
     }
 
+    const save = (data) => {
+      store.commit('username', data.username)
+      store.commit('password', data.password)
+      store.commit('siteId', data.siteId)
+      store.commit('apiKey', data.apiKey)
+      store.commit('authKey', data.authKey)
+    }
+
     return {
+      save,
       tab,
       tabs,
       accountSettingData,

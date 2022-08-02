@@ -8,6 +8,8 @@ Vue.use(Vuex)
 
 const store = new Vuex.Store({
   state: {
+    username: "",
+    password: "",
     siteId: "",
     apiKey: "",
     authKey: "",
@@ -33,7 +35,21 @@ const store = new Vuex.Store({
         );
       }
     },
-
+    username(state, payload) {
+      state.username = payload
+    },
+    password(state, payload) {
+      state.password = payload
+    },
+    siteId(state, payload) {
+      state.siteId = payload
+    },
+    apiKey(state, payload) {
+      state.apiKey = payload
+    },
+    authKey(state, payload) {
+      state.authKey = payload
+    },
     transactions(state, payload) {
       state.transactions = payload
     },

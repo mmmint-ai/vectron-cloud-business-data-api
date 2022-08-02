@@ -8,32 +8,51 @@
           </v-col>
 
           <v-col md="6" cols="12">
-            <v-text-field v-model="accountDataLocale.name" label="Name" dense outlined></v-text-field>
+            <v-text-field
+              v-model="accountDataLocale.password"
+              label="Password"
+              dense
+              outlined
+              :append-icon="isApiKeyVisible ? icons.mdiEyeOffOutline : icons.mdiEyeOutline"
+              :type="isPasswordVisible ? 'text' : 'password'"
+              @click:append="isPasswordVisible = !isPasswordVisible"
+            ></v-text-field>
           </v-col>
 
           <v-col cols="12" md="6">
-            <v-text-field v-model="accountDataLocale.email" label="E-mail" dense outlined></v-text-field>
+            <v-text-field v-model="accountDataLocale.siteId" label="SiteId" dense outlined></v-text-field>
+          </v-col>
+
+          <v-col cols="12" md="6"> </v-col>
+
+          <v-col cols="12" md="6">
+            <v-text-field
+              v-model="accountDataLocale.apiKey"
+              dense
+              label="ApiKey"
+              outlined
+              :append-icon="isApiKeyVisible ? icons.mdiEyeOffOutline : icons.mdiEyeOutline"
+              :type="isApiKeyVisible ? 'text' : 'password'"
+              @click:append="isApiKeyVisible = !isApiKeyVisible"
+            >
+            </v-text-field>
           </v-col>
 
           <v-col cols="12" md="6">
-            <v-text-field v-model="accountDataLocale.role" dense label="Role" outlined></v-text-field>
-          </v-col>
-
-          <v-col cols="12" md="6">
-            <v-select v-model="accountDataLocale.status" dense outlined label="Status" :items="status"></v-select>
-          </v-col>
-
-          <v-col cols="12" md="6">
-            <v-text-field v-model="accountDataLocale.company" dense outlined label="Company"></v-text-field>
+            <v-text-field
+              v-model="accountDataLocale.authKey"
+              dense
+              outlined
+              label="AuthKey"
+              :append-icon="isAuthKeyVisible ? icons.mdiEyeOffOutline : icons.mdiEyeOutline"
+              :type="isAuthKeyVisible ? 'text' : 'password'"
+              @click:append="isAuthKeyVisible = !isAuthKeyVisible"
+            ></v-text-field>
           </v-col>
 
           <v-col cols="12">
-            <v-btn color="primary" class="me-3 mt-4">
-              Save changes
-            </v-btn>
-            <v-btn color="secondary" outlined class="mt-4" type="reset" @click.prevent="resetForm">
-              Cancel
-            </v-btn>
+            <v-btn color="primary" class="me-3 mt-4" @click.prevent="saveForm"> Save changes </v-btn>
+            <v-btn color="secondary" outlined class="mt-4" type="reset" @click.prevent="resetForm"> Cancel </v-btn>
           </v-col>
         </v-row>
       </v-form>
@@ -42,7 +61,7 @@
 </template>
 
 <script>
-import { mdiAlertOutline, mdiCloudUploadOutline } from '@mdi/js'
+import { mdiAlertOutline, mdiCloudUploadOutline, mdiEyeOffOutline, mdiEyeOutline } from '@mdi/js'
 import { ref } from '@vue/composition-api'
 
 export default {
@@ -53,7 +72,9 @@ export default {
     },
   },
   setup(props) {
-    const status = ['Active', 'Inactive', 'Pending', 'Closed']
+    const isPasswordVisible = ref(false)
+    const isApiKeyVisible = ref(false)
+    const isAuthKeyVisible = ref(false)
 
     const accountDataLocale = ref(JSON.parse(JSON.stringify(props.accountData)))
 
@@ -61,13 +82,22 @@ export default {
       accountDataLocale.value = JSON.parse(JSON.stringify(props.accountData))
     }
 
+    const saveForm = function () {
+      this.$emit('save', accountDataLocale.value)
+    }
+
     return {
-      status,
+      isPasswordVisible,
+      isApiKeyVisible,
+      isAuthKeyVisible,
       accountDataLocale,
       resetForm,
+      saveForm,
       icons: {
         mdiAlertOutline,
         mdiCloudUploadOutline,
+        mdiEyeOffOutline,
+        mdiEyeOutline,
       },
     }
   },
