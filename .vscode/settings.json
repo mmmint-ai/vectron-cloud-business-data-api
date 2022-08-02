@@ -2,5 +2,6 @@
   "typescript.preferences.importModuleSpecifier": "relative",
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "eslint.workingDirectories": ["."],
-  "editor.formatOnSaveMode": "modificationsIfAvailable"
+  "editor.formatOnSaveMode": "modificationsIfAvailable",
+  "svg.preview.background": "black"
 }
