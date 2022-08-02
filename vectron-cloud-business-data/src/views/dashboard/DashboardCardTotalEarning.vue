@@ -32,9 +32,7 @@
         </div>
       </div>
 
-      <h4 class="mt-2 font-weight-medium">
-        Compared to $84,325 last year
-      </h4>
+
     </v-card-text>
 
     <v-card-text>
