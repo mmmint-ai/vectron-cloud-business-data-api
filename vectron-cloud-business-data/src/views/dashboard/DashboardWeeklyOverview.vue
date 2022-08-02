@@ -24,7 +24,6 @@
         height="210"
       ></vue-apex-charts>
 
-
       <v-btn
         block
         color="primary"

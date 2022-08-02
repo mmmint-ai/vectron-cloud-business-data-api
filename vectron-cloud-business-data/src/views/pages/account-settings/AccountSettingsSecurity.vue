@@ -1,10 +1,17 @@
 <template>
-  <v-card flat class="mt-5">
+  <v-card
+    flat
+    class="mt-5"
+  >
     <v-form>
       <div class="px-3">
         <v-card-text class="pt-5">
           <v-row>
-            <v-col cols="12" sm="8" md="6">
+            <v-col
+              cols="12"
+              sm="8"
+              md="6"
+            >
               <!-- current password -->
               <v-text-field
                 v-model="currentPassword"
@@ -60,10 +67,17 @@
       <div class="pa-3">
         <!-- action buttons -->
         <v-card-text>
-          <v-btn color="primary" class="me-3 mt-3">
+          <v-btn
+            color="primary"
+            class="me-3 mt-3"
+          >
             Save changes
           </v-btn>
-          <v-btn color="secondary" outlined class="mt-3">
+          <v-btn
+            color="secondary"
+            outlined
+            class="mt-3"
+          >
             Cancel
           </v-btn>
         </v-card-text>

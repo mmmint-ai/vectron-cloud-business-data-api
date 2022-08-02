@@ -12,7 +12,7 @@
         {{ `${item.total} ${item.currency}` }}
       </template>
       <template v-slot:item.transactionAt="{ item }">
-        {{ new Date(item.transactionAt).toLocaleString()  }}
+        {{ new Date(item.transactionAt).toLocaleString() }}
       </template>
     </v-data-table>
   </v-card>
@@ -30,6 +30,7 @@ export default {
         { text: 'Date', value: 'transactionAt' },
         { text: 'Total', value: 'total' },
       ],
+
       // icons
       icons: {
         mdiSquareEditOutline,
@@ -38,9 +39,7 @@ export default {
     }
   },
   computed: {
-    transactions: () => {
-      return store.state.transactions
-    },
+    transactions: () => store.state.transactions,
   },
 }
 </script>

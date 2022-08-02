@@ -52,9 +52,11 @@
 </template>
 
 <script>
+import {
+  mdiAccountOutline, mdiCurrencyUsd, mdiTrendingUp, mdiDotsVertical, mdiLabelOutline,
+} from '@mdi/js'
 import store from '../../store'
 // eslint-disable-next-line object-curly-newline
-import { mdiAccountOutline, mdiCurrencyUsd, mdiTrendingUp, mdiDotsVertical, mdiLabelOutline } from '@mdi/js'
 
 export default {
   setup() {
@@ -70,7 +72,7 @@ export default {
       {
         title: 'Product',
         total: store.getters.getCountItems.toString(),
-      }
+      },
     ]
 
     const resolveStatisticsIconVariation = data => {

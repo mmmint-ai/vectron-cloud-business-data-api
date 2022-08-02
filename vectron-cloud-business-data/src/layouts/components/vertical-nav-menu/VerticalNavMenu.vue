@@ -94,7 +94,6 @@
         :icon="icons.mdiFormSelect"
       ></nav-menu-link>
     </v-list>
-
   </v-navigation-drawer>
 </template>
 

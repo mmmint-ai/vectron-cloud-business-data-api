@@ -4,7 +4,11 @@
       <span>Total Earning</span>
       <v-spacer></v-spacer>
 
-      <v-btn icon small class="me-n3 mt-n2">
+      <v-btn
+        icon
+        small
+        class="me-n3 mt-n2"
+      >
         <v-icon>
           {{ icons.mdiDotsVertical }}
         </v-icon>
@@ -13,7 +17,9 @@
 
     <v-card-text class="my-7">
       <div class="d-flex align-center">
-        <h1 class="text-4xl font-weight-semibold">{{ totalProfit }} EUR</h1>
+        <h1 class="text-4xl font-weight-semibold">
+          {{ totalProfit }} EUR
+        </h1>
       </div>
     </v-card-text>
 
@@ -34,7 +40,9 @@
           <v-spacer></v-spacer>
 
           <div class="ms-1">
-            <p class="text--primary font-weight-medium mb-1">{{ group.total }} </p>
+            <p class="text--primary font-weight-medium mb-1">
+              {{ group.total }}
+            </p>
             <v-progress-linear :value="Number(group.total) / Number(totalProfit) * 100"></v-progress-linear>
           </div>
         </div>
@@ -54,12 +62,8 @@ export default {
     }
   },
   computed: {
-    totalProfit: () => {
-      return store.getters.getTotal.toString()
-    },
-    profitByMainGroup: () => {
-      return store.getters.profitByMainGroup.sort((a,b) => (a.total < b.total) ? 1 : ((b.total < a.total) ? -1 : 0));
-    },
+    totalProfit: () => store.getters.getTotal.toString(),
+    profitByMainGroup: () => store.getters.profitByMainGroup.sort((a, b) => ((a.total < b.total) ? 1 : ((b.total < a.total) ? -1 : 0))),
   },
 }
 </script>
