@@ -57,11 +57,6 @@
           target="_blank"
         ></nav-menu-link>
         <nav-menu-link
-          title="Register"
-          :to="{ name: 'pages-register' }"
-          target="_blank"
-        ></nav-menu-link>
-        <nav-menu-link
           title="Error"
           :to="{ name: 'error-404' }"
           target="_blank"
