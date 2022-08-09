@@ -16,3 +16,7 @@ Run via:
 ```
 ts-node ./index.ts     
 ```
+
+## Result
+
+- [Vue: Dashboard](https://mmmint-ai.github.io/vectron-cloud-business-data-api/)
